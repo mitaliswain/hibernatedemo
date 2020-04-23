@@ -1,10 +1,15 @@
 package com.mitali.hibernatedemo.entity.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,9 +20,16 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(name="EMPNAME")
 	private String empName;
-	private String deptName;
+
+	@Column(name="SALARY")
 	private long salary;
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID") 
+	private Department department;
 	
 	
 	public int getId() {
@@ -27,7 +39,7 @@ public class Employee {
 		this.id = id;
 	}
 	
-	@Column(name="EMPNAME")
+
 	public String getEmpName() {
 		return empName;
 	}
@@ -35,25 +47,27 @@ public class Employee {
 		this.empName = empName;
 	}
 	
-	@Column(name="DEPTNAME")
-	public String getDeptName() {
-		return deptName;
-	}
-	public void setDeptName(String deptName) {
-		this.deptName = deptName;
-	}
-	
-	@Column(name="SALARY")
+
 	public long getSalary() {
 		return salary;
 	}
+	
 	public void setSalary(long salary) {
 		this.salary = salary;
 	}
 	
-	public Employee() {
-		super();
-		// TODO Auto-generated constructor stub
+	public Department getDepartment() {
+		return department;
+	}
+	public void setDepartment(Department department) {
+		this.department = department;
+	
+	}
+	
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", empName=" + empName + ", salary=" + salary + ", department=" + department
+				+ "]";
 	}
 
 }
