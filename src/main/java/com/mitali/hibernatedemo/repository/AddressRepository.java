@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.mitali.hibernatedemo.entity.domain.Employee;
+import com.mitali.hibernatedemo.entity.domain.Address;
 
 @Repository
-public interface EmployeeRepository extends CrudRepository<Employee, Integer>{
-	Optional<Employee> findById(Integer id);
+public interface AddressRepository extends CrudRepository<Address, Integer>{
+	Optional<Address> findById(Integer id);
 }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mitali.hibernatedemo.entity.domain.Employee;
+import com.mitali.hibernatedemo.repository.AddressRepository;
+import com.mitali.hibernatedemo.repository.DepartmentRepository;
 import com.mitali.hibernatedemo.service.IEmployeeService;
 
 @ComponentScan
@@ -19,12 +21,29 @@ public class EmployeeController {
 	@Autowired
 	 IEmployeeService empService;
 	
+	@Autowired
+	AddressRepository addressRepository;
+	
+	@Autowired
+	DepartmentRepository departmentRepository;
+	
+	
+	
 	@RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getEmployee(@PathVariable int id) {
 		
-		Employee empController = empService.getEmployee(id);
-		System.out.println(empController);
-		return ResponseEntity.ok().body(empController);
+		//Employee empController = empService.getEmployee(id);
+		//System.out.println(empController);
+		//return ResponseEntity.ok().body(empController);	
+		
+		//System.out.println(addressRepository.findAll());
+		
+		//System.out.println(addressRepository.findById(id));
+		
+		System.out.println(addressRepository.findById(id));
+		
+		
+		return ResponseEntity.ok().body(addressRepository.findById(id));
 		
 		
 	}
