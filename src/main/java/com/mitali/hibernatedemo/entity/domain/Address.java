@@ -1,7 +1,5 @@
 package com.mitali.hibernatedemo.entity.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="ADDRESS")
 @Cacheable(false)
-public class Address implements Serializable {
+public class Address  {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +28,9 @@ public class Address implements Serializable {
 	@Column(name="STATE")
 	private String state;
 	
-	@Column(name="EMPLOYEEID")
-	private int employeeId;
 	
-	
-	/*@ManyToOne
-	@JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID")
+	@ManyToOne
+	@JoinColumn(name = "EMPLOYEE_ID", nullable=false)
 	private Employee employee;
 	
 	
@@ -45,7 +40,7 @@ public class Address implements Serializable {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
-*/
+
 	
 	public int getId() {
 		return id;
@@ -72,16 +67,11 @@ public class Address implements Serializable {
 	public void setState(String state) {
 		this.state = state;
 	}
+	
 	@Override
 	public String toString() {
 		return "Address [id=" + id + ", street=" + street + ", city=" + city + ", state=" + state + ", employee="
 				+ //employee + 
 				"]";
-	}
-	public Integer getEmployeeId() {
-		return employeeId;
-	}
-	public void setEmployeeId(Integer employeeId) {
-		this.employeeId = employeeId;
 	}
 }

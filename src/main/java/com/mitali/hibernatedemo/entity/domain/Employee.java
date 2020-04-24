@@ -1,8 +1,10 @@
 package com.mitali.hibernatedemo.entity.domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +19,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="EMPLOYEE")
+@Cacheable(true)
 public class Employee {
 	
 	@Id
@@ -35,20 +38,17 @@ public class Employee {
 	private Department department;
 	
 
-	@OneToMany(
-	       // mappedBy = "employee",
-	        cascade = CascadeType.PERSIST,
-	        fetch = FetchType.EAGER
-	    )
-	private List<Address> addresses = new ArrayList<Address>();
+	@OneToMany(mappedBy="employee", fetch = FetchType.EAGER)
+	//private List<Address> addresses;
+	private Collection<Address> addresses = new ArrayList<>();
 	
 	
 	
-	public List<Address> getAddresses() {
+	public Collection<Address> getAddresses() {
 		return addresses;
 	}
 	
-	public void setAddresses(List<Address> addresses) {
+	public void setAddresses(Collection<Address> addresses) {
 		this.addresses = addresses;
 	}
 	
@@ -73,6 +73,7 @@ public class Employee {
 	}
 	
 	public void setSalary(long salary) {
+		System.out.println("*************");
 		this.salary = salary;
 	}
 	

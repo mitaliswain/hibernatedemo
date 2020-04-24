@@ -38,9 +38,6 @@ public class EmployeeServiceImpl implements IEmployeeService{
 		
 		Optional<Employee> employee = empRepository.findById(id);
 		
-		System.out.println(employee);
-		
-		
 		if(employee.isPresent()) {
 			return employee.get();
 		} else {
