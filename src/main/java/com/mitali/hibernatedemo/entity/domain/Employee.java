@@ -1,9 +1,6 @@
 package com.mitali.hibernatedemo.entity.domain;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="EMPLOYEE")
 @Cacheable(true)
+
 public class Employee {
 	
 	@Id
@@ -33,24 +31,31 @@ public class Employee {
 	private long salary;
 	
 	
+	@OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+	private List<Address> address = new ArrayList<Address>();
+	
+	public List<Address> getAddresses() {
+		return address;
+	}
+	
+	public void setAddresses(List<Address> address) {
+		this.address = address;
+	}
+	
+	
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID") 
 	private Department department;
 	
+	public Department getDepartment() {
+		return department;
+	}
+	public void setDepartment(Department department) {
+		this.department = department;
+	
+	}
+	
 
-	@OneToMany(mappedBy="employee", fetch = FetchType.EAGER)
-	//private List<Address> addresses;
-	private Collection<Address> addresses = new ArrayList<>();
-	
-	
-	
-	public Collection<Address> getAddresses() {
-		return addresses;
-	}
-	
-	public void setAddresses(Collection<Address> addresses) {
-		this.addresses = addresses;
-	}
 	
 	public int getId() {
 		return id;
@@ -73,22 +78,8 @@ public class Employee {
 	}
 	
 	public void setSalary(long salary) {
-		System.out.println("*************");
 		this.salary = salary;
 	}
 	
-	public Department getDepartment() {
-		return department;
-	}
-	public void setDepartment(Department department) {
-		this.department = department;
-	
-	}
 
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", empName=" + empName + ", salary=" + salary + ", department=" + department
-				+ ", addresses=" + addresses + "]";
-	}
-	
 }

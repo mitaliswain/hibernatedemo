@@ -3,7 +3,9 @@ package com.mitali.hibernatedemo.service;
 import java.util.Optional;
 
 import org.hibernate.HibernateException;
+import org.omg.CosNaming._BindingIteratorImplBase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.mitali.hibernatedemo.entity.domain.Employee;
@@ -12,8 +14,16 @@ import com.mitali.hibernatedemo.entity.request.EmployeePutRequest;
 import com.mitali.hibernatedemo.exception.NotFoundException;
 import com.mitali.hibernatedemo.repository.EmployeeRepository;
 
+
 @Service
 public class EmployeeServiceImpl implements IEmployeeService{
+	
+	@Value("${url.to.order.service}") 
+	String orderServiceUrl;
+	
+	@Value("${name}")
+	String name;
+
 	
 	@Autowired
 	EmployeeRepository empRepository;
@@ -39,7 +49,18 @@ public class EmployeeServiceImpl implements IEmployeeService{
 		Optional<Employee> employee = empRepository.findById(id);
 		
 		if(employee.isPresent()) {
-			return employee.get();
+			
+			System.out.println("******** Calling " + orderServiceUrl + " **************");
+			System.out.println("******** Calling " + name + " **************");
+			
+			
+			
+			Employee  employee2= employee.get();
+			employee2.setEmpName(name); 
+			
+			return employee2;
+			
+			
 		} else {
 			throw new NotFoundException(HttpStatus.NOT_FOUND, "Id " + id + " does not exists");
 		}

@@ -1,13 +1,17 @@
 package com.mitali.hibernatedemo.entity.domain;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+
+import java.util.List;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +22,7 @@ public class Department {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private int id;
 	
 	@Column(name="DEPTNAME")
@@ -25,6 +30,18 @@ public class Department {
 	
 	@Column(name="DEPTDESC")
 	private String deptDesc;
+   
+	@OneToMany(mappedBy = "department")
+	private List<Address> address = new ArrayList<Address>();
+	
+	
+	public List<Address> getAddresses() {
+		return address;
+	}
+	
+	public void setAddresses(List<Address> address) {
+		this.address = address;
+	}
 	
 	public int getId() {
 		return id;
@@ -47,11 +64,6 @@ public class Department {
 	}
 	public void setDeptDesc(String deptDesc) {
 		this.deptDesc = deptDesc;
-	}
-	
-	@Override
-	public String toString() {
-		return "Department [id=" + id + ", deptName=" + deptName + ", deptDesc=" + deptDesc + "]";
 	}
 
 }

@@ -1,18 +1,16 @@
 package com.mitali.hibernatedemo.entity.domain;
-
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name="ADDRESS")
-@Cacheable(false)
 public class Address  {
 	
 	@Id
@@ -28,11 +26,25 @@ public class Address  {
 	@Column(name="STATE")
 	private String state;
 	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
+	@JsonBackReference
+	private Department department;
 	
-	@ManyToOne
-	@JoinColumn(name = "EMPLOYEE_ID", nullable=false)
+	public Department getDepartment() {
+		return department;
+	}
+	public void setDepartment(Department department) {
+		this.department = department;
+	
+	}
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID")
+	@JsonBackReference
 	private Employee employee;
-	
 	
 	public Employee getEmployee() {
 		return employee;
@@ -40,7 +52,7 @@ public class Address  {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
-
+	
 	
 	public int getId() {
 		return id;
@@ -68,10 +80,7 @@ public class Address  {
 		this.state = state;
 	}
 	
-	@Override
-	public String toString() {
-		return "Address [id=" + id + ", street=" + street + ", city=" + city + ", state=" + state + ", employee="
-				+ //employee + 
-				"]";
+	public Address() {
+		
 	}
 }

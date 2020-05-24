@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.mitali.hibernatedemo.entity.domain.Employee;
 import com.mitali.hibernatedemo.service.IEmployeeService;
 
 @ComponentScan
@@ -18,13 +16,12 @@ public class EmployeeController {
 	
 	@Autowired
 	 IEmployeeService empService;
+	
 
 	@RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getEmployee(@PathVariable int id) throws InterruptedException {
 		
-		Employee empController = empService.getEmployee(id);
-		
-		return ResponseEntity.ok().body(empController);	
+		return ResponseEntity.ok().body(empService.getEmployee(id));	
 		
 		
 		

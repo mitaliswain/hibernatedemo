@@ -20,13 +20,6 @@ public class DepartmentController {
 	@RequestMapping(value = "/department/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getDepartment(@PathVariable int id)throws InterruptedException{
 		
-		
-		System.out.println("First Trial***************" + departmentService.getDepartment(id));
-		Thread.sleep(5000);
-		System.out.println("Second Trial***************" + departmentService.getDepartment(id));
-		Thread.sleep(5000);
-		System.out.println("Third Trial***************" + departmentService.getDepartment(id));
-		Thread.sleep(5000);
 		return ResponseEntity.ok().body(departmentService.getDepartment(id));
 		
 		
