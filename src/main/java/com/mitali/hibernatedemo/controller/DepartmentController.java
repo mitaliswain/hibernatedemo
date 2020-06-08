@@ -8,14 +8,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.mitali.hibernatedemo.service.DepartmentServiceAdvImpl;
 import com.mitali.hibernatedemo.service.DepartmentServiceImpl;
+import com.mitali.hibernatedemo.service.IDepartmentService;
 
 @ComponentScan
 @Controller
 public class DepartmentController {
 	
 	@Autowired
-	DepartmentServiceImpl departmentService;
+	IDepartmentService departmentService;
+	
 	
 	@RequestMapping(value = "/department/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getDepartment(@PathVariable int id)throws InterruptedException{

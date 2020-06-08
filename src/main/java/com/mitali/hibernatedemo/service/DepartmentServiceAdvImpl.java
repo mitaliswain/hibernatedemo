@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ import com.mitali.hibernatedemo.exception.NotFoundException;
 import com.mitali.hibernatedemo.repository.DepartmentRepository;
 
 @Service
-@Profile("dev")
-public class DepartmentServiceImpl implements IDepartmentService{
+@Profile("!dev")
+public class DepartmentServiceAdvImpl implements IDepartmentService{
 	
 	@Autowired
 	DepartmentRepository departmentRepository;
@@ -33,7 +34,9 @@ public class DepartmentServiceImpl implements IDepartmentService{
 		Optional<Department> department = departmentRepository.findById(id);
 		
 		if(department.isPresent()) {
-			return department.get();
+			Department department2 = department.get();
+			department2.setDeptName(department2.getDeptName()+" Lenka");
+			return department2;
 		} else {
 			throw new NotFoundException(HttpStatus.NOT_FOUND, "Id " + id + " does not exists");
 		}

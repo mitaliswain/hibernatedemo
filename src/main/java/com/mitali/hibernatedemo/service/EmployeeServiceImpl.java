@@ -3,7 +3,8 @@ package com.mitali.hibernatedemo.service;
 import java.util.Optional;
 
 import org.hibernate.HibernateException;
-import org.omg.CosNaming._BindingIteratorImplBase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ import com.mitali.hibernatedemo.repository.EmployeeRepository;
 @Service
 public class EmployeeServiceImpl implements IEmployeeService{
 	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	
 	@Value("${url.to.order.service}") 
 	String orderServiceUrl;
 	
@@ -31,6 +35,8 @@ public class EmployeeServiceImpl implements IEmployeeService{
 	@Override
 	public Employee addEmployee(EmployeePostRequest empPostRequest) {
 		Employee empService = mappingEmployee(empPostRequest);
+		
+		logger.info("##########Sepcific to Service only {}", empPostRequest  );
 		
 		try {
 			empRepository.save(empService);
@@ -47,6 +53,9 @@ public class EmployeeServiceImpl implements IEmployeeService{
 	public Employee getEmployee(int id) throws NotFoundException {
 		
 		Optional<Employee> employee = empRepository.findById(id);
+		
+		
+		logger.info("##########Sepcific to Service only {}", employee  );
 		
 		if(employee.isPresent()) {
 			

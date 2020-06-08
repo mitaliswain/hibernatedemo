@@ -80,6 +80,12 @@ public class Employee {
 	public void setSalary(long salary) {
 		this.salary = salary;
 	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", empName=" + empName + ", salary=" + salary + ", address=" + address
+				+ ", department=" + department + "]";
+	}
 	
 
 }

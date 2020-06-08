@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+
+<Appenders>
+ 
+     <Socket name="socket" host="localhost" port="8000">
+         <PatternLayout pattern="%p: %m%n" charset="UTF-8"/>
+     </Socket>
+     
+     <Http name="admin"
+           url="https://localhost:8000"
+           token="eyJraWQiOiJzcGx1bmsuc2VjcmV0IiwiYWxnIjoiSFM1MTIiLCJ2ZXIiOiJ2MiIsInR0eXAiOiJzdGF0aWMifQ.eyJpc3MiOiJhZG1pbiBmcm9tIDEwYzdjMDE2MGE2YSIsInN1YiI6ImFkbWluIiwiYXVkIjoibG9nZ2luZyIsImlkcCI6IlNwbHVuayIsImp0aSI6IjM3ZWYzYzgzZWViNzc3MzRmNWI2OTI5YTk5ZDM3ZmU0M2MzYmUxMWJmZWQ1YjhiZDY0Y2Y1NjZjNjE5ODc2NGEiLCJpYXQiOjE1OTE1NjQ1NTMsImV4cCI6MCwibmJyIjoxNTkxNTY0NTUzfQ.GA7bGUUguA69UkSvSZz3SHE-SUCECFVvPaDGx1tzPyiJiCVBDGKiVZQZciMEBkdpKyIEhC-BhpgVzhGcUp3neg"
+           host="localhost"
+           index="mitaliapp"
+           source="splunktest"
+           sourcetype="log4j"
+           middleware="HttpEventCollectorUnitTestMiddleware"
+           batch_size_bytes="0"
+           batch_size_count="0"
+           batch_interval="0"
+           disableCertificateValidation="true">
+         <PatternLayout pattern="%m"/>
+     </Http>
+     
+ </Appenders>
+ 
+
+ <Loggers>
+     <Root level="INFO">
+     </Root>
+     <Logger name="splunk.logger" level="info">
+         <AppenderRef ref="socket"/>
+     </Logger>
+     
+     <Logger name="splunk.log4j" level="info">
+         <AppenderRef ref="http-input"/>
+     </Logger>
+ </Loggers>
+ 
+    
+</Configuration>
